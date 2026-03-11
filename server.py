@@ -42,26 +42,20 @@ CONNECT_TIMEOUT = 30
 
 # yt-dlp options for audio extraction
 YTDLP_AUDIO_OPTIONS = {
-    'format': 'bestaudio[ext=m4a]/bestaudio[ext=webm]/bestaudio/best',
+    'format': 'bestaudio/best',
     'cookiefile': 'cookies.txt',
     'quiet': True,
     'no_warnings': True,
     'extract_flat': False,
-    'postprocessors': [{
-        'key': 'FFmpegExtractAudio',
-        'preferredcodec': 'mp3',
-        'preferredquality': '192',
-    }],
 }
 
 # yt-dlp options for video extraction
 YTDLP_VIDEO_OPTIONS = {
-    'format': 'best[height<=720][ext=mp4]/best[ext=mp4]/best',
+    'format': 'best/bestvideo+bestaudio',
     'cookiefile': 'cookies.txt',
     'quiet': True,
     'no_warnings': True,
     'extract_flat': False,
-    'merge_output_format': 'mp4',
 }
 
 
