@@ -1,0 +1,5 @@
+grpcio>=1.59.0
+grpcio-tools>=1.59.0
+yt-dlp>=2023.12.30
+aiohttp>=3.9.0
+aiofiles>=23.2.0

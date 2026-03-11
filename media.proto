@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package mediastreamer;
+
+// Service definition for media streaming with local disk caching
+service MediaStreamer {
+  // Stream audio file for a given video ID
+  rpc StreamAudio(StreamRequest) returns (stream StreamResponse);
+  
+  // Stream video file for a given video ID
+  rpc StreamVideo(StreamRequest) returns (stream StreamResponse);
+}
+
+// Request message containing the YouTube video ID
+message StreamRequest {
+  string video_id = 1;
+}
+
+// Response message containing media chunks with metadata
+message StreamResponse {
+  bytes chunk = 1;           // Binary chunk data
+  uint32 chunk_number = 2;   // Sequential chunk number
+  uint64 total_bytes = 3;    // Cumulative bytes streamed
+  string mime_type = 4;      // MIME type (audio/mpeg, video/mp4, etc.)
+  bool from_cache = 5;       // True if served from local cache
+  uint64 file_size = 6;      // Total file size (if known)
+}

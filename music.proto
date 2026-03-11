@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package audiostreamer;
+
+// Service definition for audio streaming
+service AudioStreamer {
+  // Stream audio bytes for a given video ID
+  rpc StreamAudio(StreamRequest) returns (stream StreamResponse);
+}
+
+// Request message containing the YouTube video ID
+message StreamRequest {
+  string video_id = 1;
+}
+
+// Response message containing audio chunks
+message StreamResponse {
+  bytes audio_chunk = 1;
+  uint32 chunk_number = 2;
+  uint64 total_bytes = 3;
+  string mime_type = 4;
+}
