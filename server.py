@@ -1,3 +1,4 @@
+cat << 'EOF' > server.py
 #!/usr/bin/env python3
 """
 gRPC Media Streaming Server with Local Disk Caching
@@ -40,30 +41,23 @@ CHUNK_SIZE = 65536  # 64KB chunks for optimal streaming
 DOWNLOAD_CHUNK_SIZE = 262144  # 256KB for faster downloads
 CONNECT_TIMEOUT = 30
 
-# yt-dlp options for audio extraction
+# yt-dlp options for audio extraction (FIXED: Simple format, NO FFmpeg)
 YTDLP_AUDIO_OPTIONS = {
-    'format': 'bestaudio[ext=m4a]/bestaudio[ext=webm]/bestaudio/best',
+    'format': 'bestaudio/best',
     'cookiefile': 'cookies.txt',
     'quiet': True,
     'no_warnings': True,
     'extract_flat': False,
-    'postprocessors': [{
-        'key': 'FFmpegExtractAudio',
-        'preferredcodec': 'mp3',
-        'preferredquality': '192',
-    }],
 }
 
-# yt-dlp options for video extraction
+# yt-dlp options for video extraction (FIXED: Single streamable file format)
 YTDLP_VIDEO_OPTIONS = {
-    'format': 'best[height<=720][ext=mp4]/best[ext=mp4]/best',
+    'format': 'best',
     'cookiefile': 'cookies.txt',
     'quiet': True,
     'no_warnings': True,
     'extract_flat': False,
-    'merge_output_format': 'mp4',
 }
-
 
 @dataclass
 class DownloadLock:
@@ -508,3 +502,5 @@ if __name__ == "__main__":
     except Exception as e:
         logger.error(f"Server error: {e}")
         raise
+EOF
+        
